@@ -88,6 +88,57 @@ class Math
 
 
     /**
+     * get average from an array of numbers
+     *
+     * @param array $array
+     * @return int
+     */
+    public static function avg(array $array, $decmial = 0)
+    {
+        // filter array (to remove empty items)
+        $array = array_filter($array);
+
+        return self::round(self::divide(array_sum($array), count($array)),$decmial);
+    }
+
+
+    /**
+     * get average from an array of numbers
+     *
+     * @param array $array
+     * @return int
+     */
+    public static function average(array $array, $decmial = 0)
+    {
+        return self::avg($array, $decmial);
+    }
+
+
+    /**
+     * Find the highest number (max) within an array
+     *
+     * @param array $array
+     * @return int
+     */
+    public static function max(array $array)
+    {
+        return max($array);
+    }
+
+
+    /**
+     * Find the lowest number (min) within an array
+     *
+     * @param array $array
+     * @return int
+     */
+    public static function min(array $array)
+    {
+        return min($array);
+    }
+
+
+    /**
      * Round a number
      *
      * @param int $num
@@ -97,6 +148,32 @@ class Math
     public static function round($num, $decmial = 0)
     {
         return round($num, $decmial);
+    }
+
+
+    /**
+     * Currency format
+     *
+     * @param int $num
+     * @param int $decmial
+     * @return int
+     */
+    public static function currency($number = 0, $decmial = 2)
+    {
+        return number_format($number, $decmial, '.', ',');
+    }
+
+
+    /**
+     * Get the CPM of the impressions served
+     *
+     * @param int $impressions
+     * @param int $revenue
+     * @return int
+     */
+    public static function cpm($impressions = 0, $revenue = 0, $decmial = 0)
+    {
+        return self::round(self::divide($revenue, self::divide($impressions,1000)),$decmial);
     }
 
 }

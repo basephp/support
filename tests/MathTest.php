@@ -75,4 +75,54 @@ class MathTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($result5, 0.5);
     }
 
+
+    public function testAverage()
+    {
+        $result1 = Math::avg([1,2,2,2,2,2,5,6,5,1,2,2],2);
+        $result2 = Math::avg([1,2,2,2,2,2,5,6,5,1,2,2]);
+        $result3 = Math::average([1,2,2,2,2,2,5,6,5,1,2,2]);
+
+        $this->assertEquals($result1, 2.67);
+        $this->assertEquals($result2, 3);
+        $this->assertEquals($result3, 3);
+    }
+
+
+    public function testMax()
+    {
+        $result1 = Math::max([1,2,2,2,2,2,5,6,5,1,2,2]);
+
+        $this->assertEquals($result1, 6);
+    }
+
+
+    public function testMin()
+    {
+        $result1 = Math::min([1,2,2,2,2,2,5,6,5,1,2,2]);
+
+        $this->assertEquals($result1, 1);
+    }
+
+
+    public function testCPM()
+    {
+        $result1 = Math::cpm(13544,43);
+        $result2 = Math::cpm(13544,43,2);
+
+        $this->assertSame($result1, 3.0);
+        $this->assertSame($result2, 3.17);
+    }
+
+
+    public function testCurrency()
+    {
+        $result1 = Math::currency(500);
+        $result2 = Math::currency(5000);
+        $result3 = Math::currency(5000,0);
+
+        $this->assertEquals($result1, 500.00);
+        $this->assertEquals($result2, '5,000.00');
+        $this->assertEquals($result3, '5,000');
+    }
+
 }
