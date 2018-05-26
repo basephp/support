@@ -77,13 +77,13 @@ class Math
             $num = $a;
         }
 
-        $number = self::divide($total, $num);
+        $number = static::divide($total, $num);
 
         // return the number as a float (0.00)
         if ($percent == false) return $number;
 
         // return the number as a true percent 0%
-        return self::multiply($number, 100);
+        return static::multiply($number, 100);
     }
 
 
@@ -98,7 +98,7 @@ class Math
         // filter array (to remove empty items)
         $array = array_filter($array);
 
-        return self::round(self::divide(array_sum($array), count($array)),$decmial);
+        return static::round(static::divide(array_sum($array), count($array)),$decmial);
     }
 
 
@@ -110,7 +110,7 @@ class Math
      */
     public static function average(array $array, $decmial = 0)
     {
-        return self::avg($array, $decmial);
+        return static::avg($array, $decmial);
     }
 
 
@@ -173,7 +173,7 @@ class Math
      */
     public static function cpm($impressions = 0, $revenue = 0, $decmial = 0)
     {
-        return self::round(self::divide($revenue, self::divide($impressions,1000)),$decmial);
+        return static::round(static::divide($revenue, static::divide($impressions,1000)),$decmial);
     }
 
 }
