@@ -2,7 +2,7 @@
 
 namespace Base\Support;
 
-class Math
+class Num
 {
 
     /**
