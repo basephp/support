@@ -43,6 +43,18 @@ class Str
 
 
     /**
+     * Make a string's first character uppercase.
+     *
+     * @param  string  $string
+     * @return string
+     */
+    public static function ucfirst($string)
+    {
+        return static::upper(static::substr($string, 0, 1)).static::substr($string, 1);
+    }
+
+
+    /**
      * Return the length of the given string.
      *
      * @param  string  $value
@@ -68,8 +80,10 @@ class Str
      */
     public static function contains($haystack, $needles)
     {
-        foreach ((array) $needles as $needle) {
-            if ($needle !== '' && mb_strpos($haystack, $needle) !== false) {
+        foreach ((array) $needles as $needle)
+        {
+            if ($needle !== '' && mb_strpos($haystack, $needle) !== false)
+            {
                 return true;
             }
         }
@@ -79,19 +93,21 @@ class Str
 
 
     /**
-     * Return the length of the given string.
+     * Limit the number of characters in a string.
      *
      * @param  string  $value
-     * @param  string  $encoding
-     * @return int
+     * @param  int     $limit
+     * @param  string  $end
+     * @return string
      */
-    public static function length($value, $encoding = null)
+    public static function limit($value, $limit = 100, $end = '...')
     {
-        if ($encoding) {
-            return mb_strlen($value, $encoding);
+        if (mb_strwidth($value, 'UTF-8') <= $limit)
+        {
+            return $value;
         }
 
-        return mb_strlen($value);
+        return rtrim(mb_strimwidth($value, 0, $limit, '', 'UTF-8')).$end;
     }
 
 
@@ -130,14 +146,70 @@ class Str
 
 
     /**
-     * Make a string's first character uppercase.
+     * Determine if a given string matches a given pattern.
      *
-     * @param  string  $string
+     * @param  string|array  $pattern
+     * @param  string  $value
+     * @return bool
+     */
+    public static function is($pattern, $value)
+    {
+        $patterns = is_array($pattern) ? $pattern : (array) $pattern;
+
+        if (empty($patterns))
+        {
+            return false;
+        }
+
+        foreach ($patterns as $pattern)
+        {
+            // If the given value is an exact match we can of course return true right
+            // from the beginning. Otherwise, we will translate asterisks and do an
+            // actual pattern match against the two strings to see if they match.
+            if ($pattern == $value)
+            {
+                return true;
+            }
+
+            $pattern = preg_quote($pattern, '#');
+
+            // Asterisks are translated into zero-or-more regular expression wildcards
+            // to make it convenient to check if the strings starts with the given
+            // pattern such as "library/*", making any string check convenient.
+            $pattern = str_replace('\*', '.*', $pattern);
+
+            if (preg_match('#^'.$pattern.'\z#u', $value) === 1)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Generate a URI formatted string
+     *
+     * @param  string  $title
+     * @param  string  $separator
      * @return string
      */
-    public static function ucfirst($string)
+    public static function uri($uri, $separator = '-')
     {
-        return static::upper(static::substr($string, 0, 1)).static::substr($string, 1);
+        // Convert all dashes/underscores into a separator
+        $flip = $separator == '-' ? '_' : '-';
+
+        $uri = preg_replace('!['.preg_quote($flip).']+!u', $separator, $uri);
+
+        // Remove all characters that are not the separator, letters, numbers, or whitespace.
+        $uri = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($uri));
+
+        // Replace all separator characters and whitespace by a single separator
+        $uri = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $uri);
+
+        // clean the beginning and end of string and return
+        return trim($uri, $separator);
     }
 
 
