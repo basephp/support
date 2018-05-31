@@ -139,6 +139,18 @@ class Num
 
 
     /**
+     * Total up all the numbers in array
+     *
+     * @param array $array
+     * @return int
+     */
+    public static function total(array $array)
+    {
+        return array_sum($array);
+    }
+
+
+    /**
      * Round a number
      *
      * @param int $num
