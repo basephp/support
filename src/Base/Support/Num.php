@@ -67,7 +67,7 @@ class Num
      * @param int $b
      * @return int
      */
-    public static function percent($a, $b , $percent = true)
+    public static function percent($a, $b, $percent = true)
     {
         $total = $a;
         $num = $b;
