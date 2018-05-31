@@ -2,8 +2,7 @@
 
 # Essential PHP Functionality
 
-This package is to help **simplify your PHP development**. Since PHP is never consistent with it's method naming, this package gives you an alternative that simplifies the use of core php functions. Some concepts in this package have been taken from the support classes of the Laravel framework since those classes are primarily focused dependant. This package has **no dependencies** and can be used in any of your PHP projects.
-
+This package will help **simplify your PHP development**. PHP core functions are never consistent with it's naming conventions, and this package gives you an alternative that simplifies the use of common php functions. Some concepts in this package have been taken from the support classes of the Laravel framework since those classes are primarily focused dependant. This package has **no dependencies** and can be used in any of your PHP projects.
 
 ## Installation
 
@@ -22,4 +21,4 @@ require basephp/support dev-master
 |`Arr`            | Array              | Working with Arrays           |
 |`Str`            | String             | Working with Strings          |
 |`Num`            | Number             | Working with Numbers          |
-|`Fileystem`      | File System        | Working with the File System  |
+|`Filesystem`     | File System        | Working with the File System  |
