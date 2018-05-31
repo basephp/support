@@ -2,7 +2,7 @@
 
 # Essential PHP Functionality
 
-This package will help **simplify your PHP development**. PHP core functions are never consistent with it's naming conventions, and this package gives you an alternative that simplifies the use of common php functions. Some concepts in this package have been taken from the support classes of the Laravel framework since those classes are primarily focused dependant. This package has **no dependencies** and can be used in any of your PHP projects.
+This package will help **simplify your PHP development**. PHP core functions are never consistent with it's naming conventions, and this package gives you an alternative that simplifies the use of common php functions. This package has **no dependencies** and can be used in any of your PHP projects.
 
 ## Installation
 
@@ -11,6 +11,7 @@ Install using composer (or download and include them manually)
 ```
 require basephp/support dev-master
 ```
+*For now, use the master branch until we release a true version, all code is tested for breaks*
 
 ## Includes
 
