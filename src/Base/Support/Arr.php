@@ -344,6 +344,7 @@ class Arr
         return $array;
     }
 
+
     /**
      * Check if an item or items exist in an array using "dot" notation.
      *
@@ -422,55 +423,6 @@ class Arr
 
 
     /**
-     * Get an item from an array or object using "dot" notation.
-     *
-     * @param  mixed   $target
-     * @param  string|array  $key
-     * @param  mixed   $default
-     * @return mixed
-     */
-    public static function get($target, $key, $default = null)
-    {
-        if (is_null($key))
-        {
-            return $target;
-        }
-
-        $key = is_array($key) ? $key : explode('.', $key);
-
-        while (! is_null($segment = array_shift($key)))
-        {
-            if ($segment === '*')
-            {
-                if (! is_array($target))
-                {
-                    return $default;
-                }
-
-                $result = static::pluck($target, $key);
-
-                return in_array('*', $key) ? static::collapse($result) : $result;
-            }
-
-            if (static::accessible($target) && static::exists($target, $segment))
-            {
-                $target = $target[$segment];
-            }
-            elseif (is_object($target) && isset($target->{$segment}))
-            {
-                $target = $target->{$segment};
-            }
-            else
-            {
-                return $default;
-            }
-        }
-
-        return $target;
-    }
-
-
-    /**
      * Pluck an array of values from an array.
      *
      * @param  array  $array
@@ -486,7 +438,7 @@ class Arr
 
         foreach ($array as $item)
         {
-            $itemValue = data_get($item, $value);
+            $itemValue = static::get($item, $value);
 
             // If the key is "null", we will just append the value to the array and keep
             // looping. Otherwise we will key the array using the value of the key we
@@ -497,7 +449,7 @@ class Arr
             }
             else
             {
-                $itemKey = data_get($item, $key);
+                $itemKey = static::get($item, $key);
 
                 if (is_object($itemKey) && method_exists($itemKey, '__toString')) {
                     $itemKey = (string) $itemKey;
