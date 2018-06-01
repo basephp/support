@@ -309,7 +309,45 @@ class Arr
      */
     public static function get($array, $key, $default = null)
     {
-        if (! static::accessible($array))
+
+        if (is_null($key))
+        {
+            return $target;
+        }
+
+        $key = is_array($key) ? $key : explode('.', $key);
+
+        while (! is_null($segment = array_shift($key)))
+        {
+            if ($segment === '*')
+            {
+                if (! is_array($target))
+                {
+                    return $default;
+                }
+
+                $result = static::pluck($target, $key);
+
+                return in_array('*', $key) ? static::collapse($result) : $result;
+            }
+
+            if (static::accessible($target) && static::exists($target, $segment))
+            {
+                $target = $target[$segment];
+            }
+            elseif (is_object($target) && isset($target->{$segment}))
+            {
+                $target = $target->{$segment};
+            }
+            else 
+            {
+                return $default;
+            }
+        }
+
+        return $target;
+
+        /*if (! static::accessible($array))
         {
             return $default;
         }
@@ -341,7 +379,9 @@ class Arr
             }
         }
 
-        return $array;
+        return $array;*/
+
+
     }
 
 
