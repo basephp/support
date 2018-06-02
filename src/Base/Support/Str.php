@@ -153,7 +153,7 @@ class Str
      * @param  string  $value
      * @return bool
      */
-    public static function is($pattern, $value)
+    public static function is($pattern = [], $value = '')
     {
         $patterns = is_array($pattern) ? $pattern : (array) $pattern;
 

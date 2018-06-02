@@ -95,6 +95,15 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(Filesystem::prepend($path, '555'), 10);
         $this->assertEquals(Filesystem::get($path), '555test123');
 
+        $this->assertEquals(Filesystem::prepend(__DIR__.'/data/file55.txt', '88'), 2);
+        $this->assertEquals(Filesystem::get(__DIR__.'/data/file55.txt'), '88');
+
+        $this->assertEquals(Filesystem::name(__DIR__.'/data/file55.txt'), 'file55');
+
+        // check types
+        $this->assertEquals(Filesystem::type(__DIR__.'/data/file55.txt'), 'file');
+        $this->assertEquals(Filesystem::type(__DIR__.'/data'), 'dir');
+
         // delete the file now that we are done with it
         $this->assertEquals(Filesystem::delete($path), true);
     }

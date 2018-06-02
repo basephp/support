@@ -16,11 +16,13 @@ class StrTest extends \PHPUnit\Framework\TestCase
 
         // check string length
         $this->assertEquals(Str::length($string), 19);
+        $this->assertEquals(Str::length($string,'UTF-8'), 19);
 
         // test the string limits
         $this->assertEquals(Str::limit($string,5), 'ThIs...');
         $this->assertEquals(Str::limit($string,5,''), 'ThIs');
         $this->assertEquals(Str::limit($string,5,'-'), 'ThIs-');
+        $this->assertEquals(Str::limit($string,80), $string);
 
         // limit words
         $this->assertEquals(Str::words($string,2), 'ThIs is...');
@@ -54,6 +56,7 @@ class StrTest extends \PHPUnit\Framework\TestCase
         $string = 'Music can be loud. Music can be soft.';
         $this->assertEquals(Str::is('*can*',$string), true);
         $this->assertEquals(Str::is('',$string), false);
+        $this->assertEquals(Str::is($string), false);
     }
 
 
