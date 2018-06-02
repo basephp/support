@@ -11,9 +11,9 @@ This package will help **simplify your PHP development**. PHP core functions are
 Install using composer (or download and include them manually)
 
 ```
-require basephp/support dev-master
+composer require basephp/support
 ```
-*For now, use the master branch until we release a true version, all code is tested for breaks*
+*Note: If you're using the BasePHP Framework, this package is already included.*
 
 ## Includes
 
