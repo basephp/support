@@ -14,7 +14,7 @@ class Arr
      * @param  mixed  $value
      * @return bool
      */
-    public static function accessible($value)
+    public static function accessible($value = null)
     {
         return is_array($value) || $value instanceof ArrayAccess;
     }
@@ -29,7 +29,8 @@ class Arr
      */
     public static function add($array, $key, $value)
     {
-        if (is_null(static::get($array, $key))) {
+        if (is_null(static::get($array, $key)))
+        {
             static::set($array, $key, $value);
         }
 
