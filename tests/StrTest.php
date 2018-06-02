@@ -24,6 +24,12 @@ class StrTest extends \PHPUnit\Framework\TestCase
 
         // limit words
         $this->assertEquals(Str::words($string,2), 'ThIs is...');
+        $this->assertEquals(Str::words('my world is cool',10), 'my world is cool');
+
+        // limit words
+        $this->assertEquals(Str::ucfirst('my website'), 'My website');
+
+        $this->assertEquals(Str::substr('my website',0,2), 'my');
     }
 
 
@@ -47,6 +53,7 @@ class StrTest extends \PHPUnit\Framework\TestCase
 
         $string = 'Music can be loud. Music can be soft.';
         $this->assertEquals(Str::is('*can*',$string), true);
+        $this->assertEquals(Str::is('',$string), false);
     }
 
 

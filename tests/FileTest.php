@@ -12,6 +12,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         $dir = Filesystem::makeDirectory($path);
 
+        // Test to see if we can make the directory again..
+        // should return false.
+        $dir2 = Filesystem::makeDirectory($path);
+        $this->assertSame($dir2, false);
+
         // if the directory already exist
         // we cant create it, then we need to empty it...
         if ($dir === false)
@@ -61,6 +66,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         // check that it does not exist
         $this->assertEquals(Filesystem::isFile(__DIR__.'/data/fileXXX.txt'), false);
+
+        // check that it does not exist
+        $this->assertEquals(Filesystem::get(__DIR__.'/data/fileXXX.txt'), false);
     }
 
 
@@ -110,6 +118,22 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         // count how many files are in directory
         $this->assertEquals(Filesystem::count($path), 10);
+
+
+        // lets try to only get the .txt files,
+        // first create a random file
+        Filesystem::put($path.'/test_na.stub', '1111');
+
+        $files = Filesystem::getAll($path, 'txt');
+
+        $this->assertEquals(count($files), 10);
+
+
+        $files = Filesystem::getAll($path, 'stub');
+
+        $this->assertEquals(count($files), 1);
+
+        Filesystem::empty($path);
     }
 
 

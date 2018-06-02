@@ -8,9 +8,9 @@ class NumTest extends \PHPUnit\Framework\TestCase
 
     public function testAddition()
     {
-        $result = Num::add(5,10);
+        $this->assertEquals(Num::add(5,10), 15);
 
-        $this->assertEquals($result, 15);
+        $this->assertEquals(Num::total([10,5]), 15);
     }
 
 
