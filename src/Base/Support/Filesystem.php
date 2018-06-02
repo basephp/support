@@ -43,7 +43,7 @@ class Filesystem
     */
 	public static function delete($path)
 	{
-        $paths = is_array($paths) ? $paths : func_get_args();
+        $paths = is_array($path) ? $path : func_get_args();
 
         $success = true;
 

@@ -96,6 +96,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $path = __DIR__.'/data';
 
+        Filesystem::empty($path);
+
         for ($i=0; $i < 10; $i++)
         {
             Filesystem::put($path.'/test_'.$i.'.txt', 'ABC');
