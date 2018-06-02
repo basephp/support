@@ -2,6 +2,8 @@
 
 # Essential PHP Functionality
 
+[![Build Status](https://travis-ci.org/basephp/support.svg?branch=master)](https://travis-ci.org/basephp/support) [![Coverage Status](https://coveralls.io/repos/github/basephp/support/badge.svg?branch=master)](https://coveralls.io/github/basephp/support?branch=master)
+
 This package will help **simplify your PHP development**. PHP core functions are never consistent with it's naming conventions, and this package gives you an alternative that simplifies the use of common php functions. This package has **no dependencies** and can be used in any of your PHP projects.
 
 ## Installation
