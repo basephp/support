@@ -167,12 +167,14 @@ class Arr
      * Return the first element in an array passing a given truth test.
      *
      * @param  array  $array
-     * @param  callable|null  $callback
      * @param  mixed  $default
+     * @param  callable|null  $callback
      * @return mixed
      */
-    public static function first($array, callable $callback = null, $default = null)
+    public static function first($array, $default = null, callable $callback = null)
     {
+        $array = (array) $array;
+
         if (is_null($callback))
         {
             if (empty($array))
@@ -202,18 +204,20 @@ class Arr
      * Return the last element in an array passing a given truth test.
      *
      * @param  array  $array
-     * @param  callable|null  $callback
      * @param  mixed  $default
+     * @param  callable|null  $callback
      * @return mixed
      */
-    public static function last($array, callable $callback = null, $default = null)
+    public static function last($array, $default = null, callable $callback = null)
     {
+        $array = (array) $array;
+
         if (is_null($callback))
         {
             return empty($array) ? $default : end($array);
         }
 
-        return static::first(array_reverse($array, true), $callback, $default);
+        return static::first(array_reverse($array, true), $default, $callback);
     }
 
 
@@ -347,42 +351,6 @@ class Arr
         }
 
         return $target;
-
-        /*if (! static::accessible($array))
-        {
-            return $default;
-        }
-
-        if (is_null($key))
-        {
-            return $array;
-        }
-
-        if (static::exists($array, $key))
-        {
-            return $array[$key];
-        }
-
-        if (strpos($key, '.') === false)
-        {
-            return $array[$key] ?? $default;
-        }
-
-        foreach (explode('.', $key) as $segment)
-        {
-            if (static::accessible($array) && static::exists($array, $segment))
-            {
-                $array = $array[$segment];
-            }
-            else
-            {
-                return $default;
-            }
-        }
-
-        return $array;*/
-
-
     }
 
 

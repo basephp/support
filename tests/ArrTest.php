@@ -29,6 +29,41 @@ class ArrTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame(Arr::first($array), 123);
         $this->assertSame(Arr::last($array), 789);
+
+        $this->assertSame(Arr::first([],'default'), 'default');
+        $this->assertSame(Arr::last([], 'default'), 'default');
+
+        $this->assertSame(Arr::first(null,'default'), 'default');
+        $this->assertSame(Arr::last(null, 'default'), 'default');
+
+
+        $this->assertSame(Arr::has($array, 'key1'), true);
+        $this->assertSame(Arr::has($array, 'sfsfdf'), false);
+
+        $array['config'] = [
+            'test' => 505,
+            'test2' => 505
+        ];
+
+        $this->assertSame(Arr::has($array, 'config.test'), true);
+        $this->assertSame(Arr::has($array, ['config.test','config.test2']), true);
+        $this->assertSame(Arr::has($array, null), false);
+
+        $this->assertSame(Arr::only($array, ['config','key1']), [
+            'key1' => 123,
+            'config' => [
+                'test' => 505,
+                'test2' => 505
+            ]
+        ]);
+
+
+        $addArray = [];
+        Arr::set($addArray, 'keyOne','ValueOne');
+
+        $this->assertEquals($addArray, [
+            'keyOne' => 'ValueOne'
+        ]);
     }
 
 
