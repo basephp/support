@@ -26,3 +26,7 @@ composer require basephp/support
 |`Num`            | Number              | Working with Numbers           |
 |`Filesystem`     | File System         | Working with the File System   |
 |`Collection`     | Collection of items | Wrapper for working with arrays of data |
+
+## Contributions
+
+Accepting contributions and feedback. Send in any issues and pull requests.
