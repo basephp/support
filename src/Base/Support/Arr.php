@@ -148,7 +148,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param  \ArrayAccess|array  $array
+     * @param  \ArrayAccess|array  $target
      * @param  string|int  $key
      * @return bool
      */
@@ -314,7 +314,6 @@ class Arr
      */
     public static function get($target, $key, $default = null)
     {
-
         if (is_null($key))
         {
             return $target;
