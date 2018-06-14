@@ -24,6 +24,8 @@ class ArrTest extends \PHPUnit\Framework\TestCase
             'key3' => 789
         ];
 
+        $this->assertNotEquals($array, Arr::shuffle($array));
+
         $this->assertSame(Arr::exists($array,'key1'), true);
         $this->assertSame(Arr::exists($array,'23424'), false);
 
@@ -39,6 +41,8 @@ class ArrTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame(Arr::has($array, 'key1'), true);
         $this->assertSame(Arr::has($array, 'sfsfdf'), false);
+
+        $this->assertSame(['one'=>'two','three'=>'four'], Arr::add(['one'=>'two'], 'three', 'four'));
 
         $array['config'] = [
             'test' => 505,

@@ -191,8 +191,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testFileNames()
     {
         $path = __DIR__.'/data/folder7';
+        $path9 = __DIR__.'/data/folder9';
 
         Filesystem::makeDirectory($path);
+        Filesystem::makeDirectory($path9);
 
         Filesystem::put($path.'/filename.txt', 'test');
 
@@ -210,6 +212,17 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         //get the last modified and make sure its an int
         $this->assertInternalType('int', Filesystem::lastModified($path.'/filename.txt'));
+
+
+        Filesystem::move($path, $path9);
+        $this->assertEquals(1, Filesystem::count($path9));
+
+        Filesystem::makeDirectory($path);
+        Filesystem::put($path.'/anotherfile.txt', 'test');
+        $this->assertEquals(1, Filesystem::count($path));
+
+        Filesystem::move($path9, $path, true);
+        $this->assertEquals(1, Filesystem::count($path));
     }
 
 

@@ -130,15 +130,24 @@ class Filesystem
 
 
     /**
-    * Move a file to a new location.
+    * Move a file/directory to a new location.
     *
     * @param  string  $path
     * @param  string  $target
+    * @param  string  $directoryOverwrite
     * @return bool
     */
-    public static function move($path, $target)
+    public static function move($path, $target, $directoryOverwrite = false)
     {
-        return rename($path, $target);
+        if ($directoryOverwrite && static::isDirectory($target))
+        {
+            if (! static::deleteDirectory($target))
+            {
+                return false;
+            }
+        }
+
+        return @rename($path, $target) === true;
     }
 
 
@@ -371,28 +380,6 @@ class Filesystem
     public static function glob($pattern, $flags = 0)
     {
         return glob($pattern, $flags);
-    }
-
-
-    /**
-     * Move a directory.
-     *
-     * @param  string  $from
-     * @param  string  $to
-     * @param  bool  $overwrite
-     * @return bool
-     */
-    public static function moveDirectory($from, $to, $overwrite = false)
-    {
-        if ($overwrite && static::isDirectory($to))
-        {
-            if (! static::deleteDirectory($to))
-            {
-                return false;
-            }
-        }
-
-        return @rename($from, $to) === true;
     }
 
 

@@ -8,13 +8,21 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testBasic()
     {
-        $collect = new Collection([1,2,3]);
+        $collect = new Collection([1,2,3,4,5,6]);
 
         // check that we get all items
-        $this->assertEquals($collect->all(), [1,2,3]);
+        $this->assertEquals($collect->all(), [1,2,3,4,5,6]);
+
+        // check that we get all items
+        $this->assertNotEquals($collect->shuffle(), [1,2,3,4,5,6]);
 
         // check that we count all items
-        $this->assertEquals($collect->count(), 3);
+        $this->assertEquals($collect->count(), 6);
+
+        // remove the first item from the array
+        $this->assertEquals(true, $collect->shift());
+        // the first item was removed...
+        $this->assertEquals([2,3,4,5,6], $collect->all());
     }
 
 

@@ -42,9 +42,11 @@ class NumTest extends \PHPUnit\Framework\TestCase
     {
         $result1 = Num::divide(10,2);
         $result2 = Num::divide(10,0);
+        $result3 = Num::divide(0,10);
 
         $this->assertEquals($result1, 5);
         $this->assertEquals($result2, 0);
+        $this->assertEquals($result3, 0);
     }
 
 
