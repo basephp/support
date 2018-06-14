@@ -146,6 +146,47 @@ class FileTest extends \PHPUnit\Framework\TestCase
     }
 
 
+    public function testChmod()
+    {
+        $path = __DIR__.'/data/chmod.txt';
+
+        Filesystem::put($path, 'test');
+
+        $this->assertEquals('0644', Filesystem::chmod($path));
+
+        // don't believe this is working locally right now...
+        $this->assertEquals(true, Filesystem::chmod($path, '0775'));
+
+        // cant test this on local right now...
+        // $this->assertEquals('0777', Filesystem::chmod($path));
+    }
+
+
+    public function testCopyMove()
+    {
+        $path = __DIR__.'/data/444';
+        $path2 = __DIR__.'/data/777';
+
+        Filesystem::makeDirectory($path);
+        Filesystem::makeDirectory($path2);
+
+        Filesystem::put($path.'/newfile.txt', 'test');
+
+        $this->assertEquals(1, Filesystem::count($path));
+
+        // move files from one directory to another...
+        $this->assertEquals(true, Filesystem::move($path.'/newfile.txt', $path2.'/movedfile.txt'));
+        $this->assertEquals(1, Filesystem::count($path2));
+        $this->assertEquals(0, Filesystem::count($path));
+        $this->assertEquals(true, Filesystem::exists($path2.'/movedfile.txt'));
+
+        $this->assertEquals(true, Filesystem::copy($path2.'/movedfile.txt', $path2.'/copyied.txt'));
+        $this->assertEquals(2, Filesystem::count($path2));
+        $this->assertEquals(true, Filesystem::exists($path2.'/copyied.txt'));
+        $this->assertEquals('test', Filesystem::get($path2.'/copyied.txt'));
+    }
+
+
     public function testDeleteDirectory()
     {
         $path = __DIR__.'/data';
@@ -153,6 +194,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
         // delete the file now that we are done with it
         $this->assertEquals(Filesystem::deleteDirectory($path), true);
     }
+
+
+
 
 
 }
