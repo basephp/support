@@ -312,7 +312,7 @@ class Arr
      * @param  mixed   $default
      * @return mixed
      */
-    public static function get($target, $key, $default = null)
+    public static function get($target, $key = null, $default = null)
     {
         if (is_null($key))
         {
@@ -368,7 +368,7 @@ class Arr
 
         $keys = (array) $keys;
 
-        if (! $array) {
+        if (!is_array($array) || !$array) {
             return false;
         }
 

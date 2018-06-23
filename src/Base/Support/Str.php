@@ -2,7 +2,6 @@
 
 namespace Base\Support;
 
-
 class Str
 {
 

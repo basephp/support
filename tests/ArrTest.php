@@ -13,6 +13,8 @@ class ArrTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame(Arr::isAssoc([1,2,3]), false);
         $this->assertSame(Arr::isAssoc([1=>[1,2,3],2=>[1,2,3],3=>[1,2,3]]), true);
+
+        $this->assertSame(Arr::get(['test1','test2']), ['test1','test2']);
     }
 
 
@@ -41,6 +43,16 @@ class ArrTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame(Arr::has($array, 'key1'), true);
         $this->assertSame(Arr::has($array, 'sfsfdf'), false);
+
+        // check if target is an array
+        $this->assertSame(Arr::has('fdgdfg', 'sfsfdf'), false);
+        // check if keys are emptyu
+        $this->assertSame(Arr::has($array, []), false);
+
+        // check that we have wrapped an array around these items
+        $this->assertInternalType('array',Arr::wrap($array));
+        $this->assertInternalType('array',Arr::wrap('333'));
+
 
         $this->assertSame(['one'=>'two','three'=>'four'], Arr::add(['one'=>'two'], 'three', 'four'));
 
