@@ -320,6 +320,51 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
+    * Sort through each item with a callback.
+    *
+    * @param  callable|null  $callback
+    * @return static
+    */
+    public function sort(callable $callback = null)
+    {
+        $items = $this->items;
+
+        $callback ? uasort($items, $callback) : asort($items);
+
+        return new static($items);
+    }
+
+
+    /**
+     * Sort the collection using the given callback.
+     *
+     * @param  callable|string  $callback
+     * @param  string  $direction (ASC | DESC)
+     * @param  int  $options
+     * @return static
+     */
+    public function sortBy($callback, $direction = 'ASC', $options = SORT_REGULAR)
+    {
+        $results = [];
+        $callback = $this->valueCallable($callback);
+
+        foreach($this->items as $key => $value)
+        {
+            $results[$key] = $callback($value, $key);
+        }
+
+        (($direction == 'DESC') ? arsort($results, $options) : asort($results, $options));
+
+        foreach(array_keys($results) as $key)
+        {
+            $results[$key] = $this->items[$key];
+        }
+
+        return new static($results);
+    }
+
+
+    /**
      * Get an iterator for the items.
      *
      * @return \ArrayIterator
@@ -414,6 +459,39 @@ class Collection implements ArrayAccess, IteratorAggregate
     public function __toString()
     {
         return $this->toJson();
+    }
+
+
+
+    /**
+     * Determine if the given value is callable, but not a string.
+     *
+     * @param  mixed  $value
+     * @return bool
+     */
+    protected function isCallable($value)
+    {
+        return ! is_string($value) && is_callable($value);
+    }
+
+
+    /**
+     * Pass the value through callables
+     *
+     * @param  string  $value
+     * @return callable
+     */
+    protected function valueCallable($value)
+    {
+        if ($this->isCallable($value))
+        {
+            return $value;
+        }
+
+        return function ($item) use ($value)
+        {
+            return $this->get($item, $value);
+        };
     }
 
 

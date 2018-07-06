@@ -116,6 +116,29 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($collect->has('sites'),true);
         $this->assertEquals($collect->has('sites.timothymarois'),true);
         $this->assertEquals($collect->has('doesnotexist'),false);
+    }
+
+
+    public function testSortable()
+    {
+        $collect = new Collection([
+            'productA' => ['price'=>10],
+            'productB' => ['price'=>30],
+            'productC' => ['price'=>2]
+        ]);
+
+        $this->assertEquals(['price'=>10],$collect->first());
+        $this->assertEquals(['price'=>2],$collect->last());
+
+        $productSorted = $collect->sortBy('price','ASC');
+
+        $this->assertEquals(['price'=>2],$productSorted->first());
+        $this->assertEquals(['price'=>30],$productSorted->last());
+
+        $productSorted = $collect->sortBy('price','DESC');
+
+        $this->assertEquals(['price'=>30],$productSorted->first());
+        $this->assertEquals(['price'=>2],$productSorted->last());
 
     }
 
