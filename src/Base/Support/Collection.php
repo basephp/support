@@ -365,6 +365,54 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
+     * Run a filter over each of the items.
+     *
+     * @param  callable|null  $callback
+     * @return static
+     */
+    public function filter(callable $callback = null)
+    {
+        if ($callback) {
+            return new static(Arr::where($this->items, $callback));
+        }
+
+        return new static(array_filter($this->items));
+    }
+
+
+    /**
+     * Filter items by the given key value pair.
+     *
+     * @param  string  $key
+     * @param  mixed  $operator
+     * @param  mixed  $value
+     * @return static
+     */
+    public function where($key, $operator, $value = null)
+    {
+        return $this->filter($this->filterWhere(...func_get_args()));
+    }
+
+
+    /**
+     * Filter items by the given key value pair.
+     *
+     * @param  string  $key
+     * @param  mixed  $values
+     * @param  bool  $strict
+     * @return static
+     */
+    public function whereIn($key, $values, $strict = false)
+    {
+        $values = (array) $values;
+
+        return $this->filter(function ($item) use ($key, $values, $strict) {
+            return in_array(Arr::get($item, $key), $values, $strict);
+        });
+    }
+
+
+    /**
      * Get an iterator for the items.
      *
      * @return \ArrayIterator
@@ -462,6 +510,49 @@ class Collection implements ArrayAccess, IteratorAggregate
     }
 
 
+    /**
+     * Where Check
+     *
+     * @param  string  $key
+     * @param  string  $operator
+     * @param  mixed  $value
+     * @return \Closure
+     */
+    protected function filterWhere($key, $operator, $value = null)
+    {
+        if (func_num_args() === 2) {
+            $value = $operator;
+
+            $operator = '=';
+        }
+
+        return function ($item) use ($key, $operator, $value) {
+            $retrieved = Arr::get($item, $key);
+
+            $strings = array_filter([$retrieved, $value], function ($value) {
+                return is_string($value) || (is_object($value) && method_exists($value, '__toString'));
+            });
+
+            if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) == 1) {
+                return in_array($operator, ['!=', '<>', '!==']);
+            }
+
+            switch ($operator) {
+                default:
+                case '=':
+                case '==':  return $retrieved == $value;
+                case '!=':
+                case '<>':  return $retrieved != $value;
+                case '<':   return $retrieved < $value;
+                case '>':   return $retrieved > $value;
+                case '<=':  return $retrieved <= $value;
+                case '>=':  return $retrieved >= $value;
+                case '===': return $retrieved === $value;
+                case '!==': return $retrieved !== $value;
+            }
+        };
+    }
+
 
     /**
      * Determine if the given value is callable, but not a string.
@@ -493,6 +584,5 @@ class Collection implements ArrayAccess, IteratorAggregate
             return $this->get($item, $value);
         };
     }
-
 
 }

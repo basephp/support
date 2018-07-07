@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+### 07/07/2018 - 1.2.0
+* Added new `Collection` methods, `where()`, `whereIn()` and `filter()`
+* Added protected method on `Collection` for `filterWhere()` on an operator check.
+
 ### 07/06/2018 - 1.1.0
 * Added new `Collection` methods, `sort()` and `sortBy()` (ability to sort the items in collection)
 * Added protected methods on `Collection` for `isCallable()` and `ValueCallable`.

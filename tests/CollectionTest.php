@@ -119,6 +119,29 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     }
 
 
+
+    public function testWhere()
+    {
+        $collect = new Collection([
+            'productA' => ['price'=>10,'keyword'=>'car'],
+            'productB' => ['price'=>30,'keyword'=>'truck'],
+            'productC' => ['price'=>2,'keyword'=>'car'],
+            'productD' => ['price'=>15,'keyword'=>'atv']
+        ]);
+
+        $items1 = $collect->where('keyword','car');
+        $items2 = $collect->where('price',2);
+        $items3 = $collect->where('price','>',20);
+        $items4 = $collect->whereIn('keyword',['truck','atv']);
+
+        $this->assertEquals(2,$items1->count());
+        $this->assertEquals(['price'=>10,'keyword'=>'car'],$items1->first());
+        $this->assertEquals(['price'=>2,'keyword'=>'car'],$items2->first());
+        $this->assertEquals(['price'=>30,'keyword'=>'truck'],$items3->first());
+        $this->assertEquals(2,$items4->count());
+    }
+
+
     public function testSortable()
     {
         $collect = new Collection([
