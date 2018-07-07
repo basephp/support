@@ -64,7 +64,8 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
-    * Get the specified configuration value.
+    * Get the specified value.
+    * Using "Dot" notation
     *
     * @param  array|string  $key
     * @param  mixed   $default
@@ -81,7 +82,7 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
-    * Get many configuration values.
+    * Get many values.
     *
     * @param  array  $keys
     * @return array
@@ -316,6 +317,52 @@ class Collection implements ArrayAccess, IteratorAggregate
     public function pluck($value, $key = null)
     {
         return new static(Arr::pluck($this->items, $value, $key));
+    }
+
+
+    /**
+     * Get one or a specified number of items randomly from the collection.
+     *
+     * @param  int|null  $number
+     * @return static|mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function random($number = null)
+    {
+        if (is_null($number)) {
+            return Arr::random($this->items);
+        }
+
+        return new static(Arr::random($this->items, $number));
+    }
+
+
+    /**
+     * Get all items except for those with the specified keys.
+     *
+     * @param  mixed  $keys
+     * @return static
+     */
+    public function except($keys)
+    {
+        $keys = is_array($keys) ? $keys : func_get_args();
+
+        return new static(Arr::except($this->items, $keys));
+    }
+
+
+    /**
+     * Get the items with the specified keys.
+     *
+     * @param  mixed  $keys
+     * @return static
+     */
+    public function only($keys)
+    {
+        $keys = is_array($keys) ? $keys : func_get_args();
+
+        return new static(Arr::only($this->items, $keys));
     }
 
 
@@ -574,13 +621,11 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     protected function valueCallable($value)
     {
-        if ($this->isCallable($value))
-        {
+        if ($this->isCallable($value)) {
             return $value;
         }
 
-        return function ($item) use ($value)
-        {
+        return function ($item) use ($value) {
             return $this->get($item, $value);
         };
     }

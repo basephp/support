@@ -10,6 +10,9 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
     {
         $collect = new Collection([1,2,3,4,5,6]);
 
+        // get the keys in collection
+        $this->assertEquals([0,1,2,3,4,5], $collect->keys()->all());
+
         // check that we get all items
         $this->assertEquals($collect->all(), [1,2,3,4,5,6]);
 
@@ -23,6 +26,7 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(true, $collect->shift());
         // the first item was removed...
         $this->assertEquals([2,3,4,5,6], $collect->all());
+
     }
 
 
@@ -163,6 +167,58 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['price'=>30],$productSorted->first());
         $this->assertEquals(['price'=>2],$productSorted->last());
 
+    }
+
+
+    public function testRandom()
+    {
+        $collect = new Collection([
+            ['name'=>'Watch','price'=>249],
+            ['name'=>'Display','price'=>129],
+            ['name'=>'Phone','price'=>749],
+        ]);
+
+        $this->assertEquals(['name'=>'Watch','price'=>249],$collect->first());
+        $this->assertEquals(['name'=>'Phone','price'=>749],$collect->last());
+
+        $randomItems = $collect->random(2);
+        $this->assertEquals(2,$randomItems->count());
+    }
+
+
+    public function testExcept()
+    {
+        $collect = new Collection([
+            'id' => 1,
+            'name' => 'Apple Watch',
+            'key' => 'kjsdhfuioeiwjfkld'
+        ]);
+
+        $items = $collect->except(['id','key']);
+
+        $this->assertEquals(['name' => 'Apple Watch'],$items->all());
+
+        $items = $collect->except('key');
+
+        $this->assertEquals(['id' => 1, 'name' => 'Apple Watch'],$items->all());
+    }
+
+
+    public function testOnly()
+    {
+        $collect = new Collection([
+            'id' => 1,
+            'name' => 'Apple Watch',
+            'key' => 'kjsdhfuioeiwjfkld'
+        ]);
+
+        $items = $collect->only(['id','key']);
+
+        $this->assertEquals(['id' => 1,'key' => 'kjsdhfuioeiwjfkld'],$items->all());
+
+        $items = $collect->only('id');
+
+        $this->assertEquals(['id' => 1],$items->all());
     }
 
 }
