@@ -460,6 +460,48 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
+     * Push an item onto the end of the collection.
+     *
+     * @param  mixed  $value
+     * @return $this
+     */
+    public function push($value)
+    {
+        $this->offsetSet(null, $value);
+
+        return $this;
+    }
+
+
+    /**
+     * Get and remove an item from the collection.
+     *
+     * @param  mixed  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function pull($key, $default = null)
+    {
+        return Arr::pull($this->items, $key, $default);
+    }
+    
+
+    /**
+     * Put an item in the collection by key.
+     *
+     * @param  mixed  $key
+     * @param  mixed  $value
+     * @return $this
+     */
+    public function put($key, $value)
+    {
+        $this->offsetSet($key, $value);
+
+        return $this;
+    }
+
+
+    /**
      * Get an iterator for the items.
      *
      * @return \ArrayIterator

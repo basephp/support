@@ -1,6 +1,11 @@
 # Release Notes
 
 
+## v1.3.1 (07/07/2018)
+
+### Added
+* Added new methods `pull()`, `push()`, `put()` on `Collection`
+
 ## v1.3.0 (07/07/2018)
 
 ### Added
