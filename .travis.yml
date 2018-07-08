@@ -3,6 +3,7 @@ language: php
 php:
   - 7
   - 7.1
+  - 7.2
 
 sudo: required
 dist: precise
@@ -17,7 +18,3 @@ script:
 after_success:
   - travis_retry php vendor/bin/coveralls
   - travis_retry php tests/bin/coveralls.phar
-
-branches:
-  only:
-  - master
