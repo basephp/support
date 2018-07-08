@@ -1,5 +1,12 @@
 # Release Notes
 
+## v1.3.2 (07/08/2018)
+
+### Added
+* Added new method `replace()` on `Collection`
+
+### Changed
+* Allowing `replace()`, `set()` and `remove()` to return `$this` for chaining.
 
 ## v1.3.1 (07/07/2018)
 

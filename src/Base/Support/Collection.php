@@ -105,11 +105,25 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
+    * Replace the current collection
+    *
+    * @param  array  $array
+    * @return self
+    */
+    public function replace($array = [])
+    {
+        $this->items = $array;
+
+        return $this;
+    }
+
+
+    /**
     * Set a given value into the collection
     *
     * @param  array|string  $key
     * @param  mixed   $value
-    * @return void
+    * @return self
     */
     public function set($key, $value = null)
     {
@@ -119,6 +133,8 @@ class Collection implements ArrayAccess, IteratorAggregate
         {
             $this->items[$key] = $value;
         }
+
+        return $this;
     }
 
 
@@ -218,6 +234,8 @@ class Collection implements ArrayAccess, IteratorAggregate
     public function remove($key)
     {
         unset($this->items[$key]);
+
+        return $this;
     }
 
 
@@ -484,7 +502,7 @@ class Collection implements ArrayAccess, IteratorAggregate
     {
         return Arr::pull($this->items, $key, $default);
     }
-    
+
 
     /**
      * Put an item in the collection by key.
