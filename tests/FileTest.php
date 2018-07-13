@@ -121,9 +121,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
         }
 
         $files = Filesystem::getAll($path);
+        $filesReal = Filesystem::getAll($path,'',true);
 
         // check if we got all files created.
         $this->assertEquals(count($files), 10);
+        $this->assertEquals(count($filesReal), 10);
 
         // count how many files are in directory
         $this->assertEquals(Filesystem::count($path), 10);

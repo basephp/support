@@ -181,9 +181,10 @@ class Filesystem
     *
     * @param  string  $path
     * @param  string  $extension
+    * @param  string  $realpath
     * @return array
     */
-    public static function getAll($path, $extension = '')
+    public static function getAll($path, $extension = '', $realpath = false)
     {
         if ($files = array_diff(scandir($path), array('.', '..')))
         {
@@ -196,6 +197,13 @@ class Filesystem
                         unset($files[$index]);
                     }
                 }
+            }
+
+            if ($realpath === true)
+            {
+                $files = array_map(function($file) use ($path) {
+                    return realpath(rtrim($path,'/').'/'.$file);
+                }, $files);
             }
 
             return $files;

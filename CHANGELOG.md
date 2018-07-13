@@ -1,5 +1,11 @@
 # Release Notes
 
+## v1.3.3 (07/13/2018)
+
+### Added
+* Added real path option on `Filesystem::getPath()`, before it would only give file names.
+
+
 ## v1.3.2 (07/08/2018)
 
 ### Added
@@ -8,16 +14,19 @@
 ### Changed
 * Allowing `replace()`, `set()` and `remove()` to return `$this` for chaining.
 
+
 ## v1.3.1 (07/07/2018)
 
 ### Added
 * Added new methods `pull()`, `push()`, `put()` on `Collection`
+
 
 ## v1.3.0 (07/07/2018)
 
 ### Added
 * Added new method `random()` on `Collection`
 * Added new method `only()` and `except()` on `Collection`
+
 
 ## v1.2.0 (07/07/2018)
 
