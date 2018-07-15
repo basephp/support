@@ -134,12 +134,12 @@ class Filesystem
     *
     * @param  string  $path
     * @param  string  $target
-    * @param  string  $directoryOverwrite
+    * @param  string  $replaceDirectory
     * @return bool
     */
-    public static function move($path, $target, $directoryOverwrite = false)
+    public static function move($path, $target, $replaceDirectory = false)
     {
-        if ($directoryOverwrite && static::isDirectory($target))
+        if ($replaceDirectory && static::isDirectory($target))
         {
             if (! static::deleteDirectory($target))
             {
@@ -148,6 +148,21 @@ class Filesystem
         }
 
         return @rename($path, $target) === true;
+    }
+
+
+    /**
+    * Rename a file or directory
+    * Uses the move() method
+    *
+    * @param  string  $path
+    * @param  string  $name
+    * @param  string  $replaceDirectory
+    * @return bool
+    */
+    public static function rename($path, $name, $replaceDirectory = false)
+    {
+        return static::move($path, static::dirname($path).'/'.$name, $replaceDirectory);
     }
 
 
@@ -210,6 +225,20 @@ class Filesystem
         }
 
         return [];
+    }
+
+
+    /**
+    * Get all the files within a directory (and by extension if requested)
+    *
+    * @param  string  $path
+    * @param  string  $extension
+    * @param  string  $realpath
+    * @return array
+    */
+    public static function files($path, $extension = '', $realpath = false)
+    {
+        return static::getAll($path, $extension, $realpath);
     }
 
 

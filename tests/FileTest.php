@@ -121,10 +121,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
         }
 
         $files = Filesystem::getAll($path);
+        $filesMethod = Filesystem::files($path);
         $filesReal = Filesystem::getAll($path,'',true);
 
         // check if we got all files created.
         $this->assertEquals(count($files), 10);
+        $this->assertEquals(count($filesMethod), 10);
         $this->assertEquals(count($filesReal), 10);
 
         // count how many files are in directory
@@ -136,13 +138,13 @@ class FileTest extends \PHPUnit\Framework\TestCase
         Filesystem::put($path.'/test_na.stub', '1111');
 
         $files = Filesystem::getAll($path, 'txt');
-
         $this->assertEquals(count($files), 10);
 
+        $filesMethod = Filesystem::files($path, 'txt');
+        $this->assertEquals(count($filesMethod), 10);
 
-        $files = Filesystem::getAll($path, 'stub');
-
-        $this->assertEquals(count($files), 1);
+        $stubFiles = Filesystem::getAll($path, 'stub');
+        $this->assertEquals(count($stubFiles), 1);
 
         Filesystem::empty($path);
     }
@@ -215,7 +217,6 @@ class FileTest extends \PHPUnit\Framework\TestCase
         //get the last modified and make sure its an int
         $this->assertInternalType('int', Filesystem::lastModified($path.'/filename.txt'));
 
-
         Filesystem::move($path, $path9);
         $this->assertEquals(1, Filesystem::count($path9));
 
@@ -225,7 +226,37 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         Filesystem::move($path9, $path, true);
         $this->assertEquals(1, Filesystem::count($path));
+
+
     }
+
+
+
+    public function testRenameFile()
+    {
+        $path    = __DIR__.'/myfiles/';
+        $oldName = 'oldfile.txt';
+        $newName = 'newname.txt';
+
+        Filesystem::makeDirectory($path);
+        Filesystem::makeDirectory($path.'bad');
+        Filesystem::put($path.$oldName, 'test');
+
+        $this->assertEquals(true, Filesystem::exists($path.$oldName));
+        $this->assertEquals('test', Filesystem::get($path.$oldName));
+
+        Filesystem::rename($path.$oldName, $newName);
+
+        $this->assertEquals(true, Filesystem::exists($path.$newName));
+        $this->assertEquals('test', Filesystem::get($path.$newName));
+
+        Filesystem::rename($path.'bad', 'newdir');
+
+        $this->assertEquals(true, Filesystem::isDirectory($path.'newdir'));
+
+        Filesystem::deleteDirectory($path);
+    }
+
 
 
 

@@ -1,5 +1,12 @@
 # Release Notes
 
+## v1.3.4 (07/14/2018)
+
+### Added
+* Added `rename()` method for renaming files or directories in the `Filesystem`.
+* Added `files()` method as an alias (future replacement to `getAll()`) in the `Filesystem`.
+
+
 ## v1.3.3 (07/13/2018)
 
 ### Added
