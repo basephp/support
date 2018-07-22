@@ -1,5 +1,15 @@
 # Release Notes
 
+
+## v1.3.5 (07/22/2018)
+
+### Added
+* Added `folders()` method within `Filesystem` for extracting only directories.
+
+### Changed
+* The `getAll()` within `Filesystem` added `type` for `folders` and `files`.
+
+
 ## v1.3.4 (07/14/2018)
 
 ### Added

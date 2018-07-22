@@ -150,6 +150,38 @@ class FileTest extends \PHPUnit\Framework\TestCase
     }
 
 
+    public function testDirectoryFiles()
+    {
+        $path = __DIR__.'/data';
+
+        Filesystem::empty($path);
+
+        Filesystem::makeDirectory($path.'/newdir');
+        Filesystem::makeDirectory($path.'/newdir2');
+        Filesystem::makeDirectory($path.'/newdir3');
+
+        for ($i=0; $i < 10; $i++)
+        {
+            Filesystem::put($path.'/test_'.$i.'.txt', 'ABC');
+        }
+
+        $getFiles = Filesystem::files($path);
+
+        // check if we got all files created.
+        $this->assertEquals(count($getFiles), 10);
+
+        $getFolders = Filesystem::folders($path);
+        $getFolders2 = Filesystem::folders($path, true);
+
+        // check if we got all files created.
+        $this->assertEquals(count($getFolders), 3);
+        // check if we got all files created.
+        $this->assertEquals(count($getFolders2), 3);
+
+        Filesystem::empty($path);
+    }
+
+
     public function testChmod()
     {
         $path = __DIR__.'/data/chmod.txt';

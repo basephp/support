@@ -199,7 +199,7 @@ class Filesystem
     * @param  string  $realpath
     * @return array
     */
-    public static function getAll($path, $extension = '', $realpath = false)
+    public static function getAll($path, $extension = '', $realpath = false, $type = 'all')
     {
         if ($files = array_diff(scandir($path), array('.', '..')))
         {
@@ -212,6 +212,20 @@ class Filesystem
                         unset($files[$index]);
                     }
                 }
+            }
+
+            if ($type === 'folders')
+            {
+                $files = array_filter($files,function($file) use ($path) {
+                    return (static::isDirectory(rtrim($path,'/').'/'.$file));
+                });
+            }
+
+            if ($type === 'files')
+            {
+                $files = array_filter($files,function($file) use ($path) {
+                    return (static::isFile(rtrim($path,'/').'/'.$file));
+                });
             }
 
             if ($realpath === true)
@@ -238,7 +252,20 @@ class Filesystem
     */
     public static function files($path, $extension = '', $realpath = false)
     {
-        return static::getAll($path, $extension, $realpath);
+        return static::getAll($path, $extension, $realpath, 'files');
+    }
+
+
+    /**
+    * Get all the folders in a directory
+    *
+    * @param  string  $path
+    * @param  string  $realpath
+    * @return array
+    */
+    public static function folders($path, $realpath = false)
+    {
+        return static::getAll($path, '', $realpath, 'folders');
     }
 
 
