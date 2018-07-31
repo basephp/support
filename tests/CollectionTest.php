@@ -221,4 +221,118 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['id' => 1],$items->all());
     }
 
+
+    public function testGroupBy()
+    {
+        $collect = new Collection([
+            ['category' => 'furniture', 'product' => 'Chair'],
+            ['category' => 'reading', 'product' => 'Bookcase'],
+            ['category' => 'furniture', 'product' => 'Desk']
+        ]);
+
+        $grabbedItems = $collect->groupBy('category');
+
+        $this->assertEquals(2,$grabbedItems->get('furniture')->count());
+        $this->assertEquals(1,$grabbedItems->get('reading')->count());
+        $this->assertEquals(['category' => 'reading', 'product' => 'Bookcase'],$grabbedItems->get('reading')->first());
+    }
+
+
+    public function testMergeCollectionArray()
+    {
+        $collect1 = new Collection([
+            ['category' => 'furniture', 'product' => 'Chair'],
+        ]);
+
+        $collect2 = new Collection([
+            ['category' => 'furniture', 'product' => 'Desk'],
+        ]);
+
+        $newCollection = $collect1->merge($collect2->all());
+
+        $this->assertEquals(2,$newCollection->count());
+        $this->assertEquals(['category' => 'furniture', 'product' => 'Desk'],$newCollection->last());
+    }
+
+
+    public function testMergeCollectionSelf()
+    {
+        $collect1 = new Collection([
+            ['category' => 'furniture', 'product' => 'Chair'],
+        ]);
+
+        $collect2 = new Collection([
+            ['category' => 'furniture', 'product' => 'Desk'],
+        ]);
+
+        $newCollection = $collect1->merge($collect2);
+
+        $this->assertEquals(2,$newCollection->count());
+        $this->assertEquals(['category' => 'furniture', 'product' => 'Desk'],$newCollection->last());
+    }
+
+
+
+    public function testCombine()
+    {
+        $collect1 = new Collection([
+            'green', 'red', 'yellow'
+        ]);
+
+        $collect2 = new Collection([
+            'avocado', 'apple', 'banana'
+        ]);
+
+        $newCollection = $collect1->combine($collect2);
+
+        $this->assertEquals(3,$newCollection->count());
+        $this->assertEquals(['green'=>'avocado','red'=>'apple','yellow'=>'banana'],$newCollection->all());
+    }
+
+
+    public function testReject()
+    {
+        $collect1 = new Collection([1, 2, 3, 4]);
+
+        $filtered = $collect1->reject(function ($value, $key) {
+            return $value > 2;
+        });
+
+        $this->assertEquals([1,2],$filtered->all());
+    }
+
+
+    public function testUnion()
+    {
+        $collect1 = new Collection([1 => ['a'], 2 => ['b']]);
+
+        $newCollection = $collect1->union([3 => ['c'], 1 => ['b']]);
+
+        $this->assertEquals([1 => ['a'], 2 => ['b'], 3 => ['c']],$newCollection->all());
+    }
+
+
+    public function testUnique()
+    {
+        $collection = new Collection([1, 1, 2, 2, 3, 4, 2]);
+
+        $unique = $collection->unique();
+
+        $this->assertEquals([1, 2, 3, 4],$unique->values()->all());
+    }
+
+
+    public function testEach()
+    {
+        $collection = new Collection([1, 1, 2, 2, 3, 4, 2]);
+
+        $test = $collection->each(function ($item, $key) {
+
+        });
+
+        $this->assertEquals([1, 1, 2, 2, 3, 4, 2],$test->all());
+
+    }
+
+
 }

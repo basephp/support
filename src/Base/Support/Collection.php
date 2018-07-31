@@ -32,7 +32,7 @@ class Collection implements ArrayAccess, IteratorAggregate
     */
     public function __construct(array $items = [])
     {
-        $this->items = $items;
+        $this->items = $this->getArrayableItems($items);
     }
 
 
@@ -310,6 +310,17 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
+     * Reset the keys on the underlying array.
+     *
+     * @return static
+     */
+    public function values()
+    {
+        return new static(array_values($this->items));
+    }
+
+
+    /**
      * Run a map over each of the items.
      *
      * @param  callable  $callback
@@ -469,7 +480,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function whereIn($key, $values, $strict = false)
     {
-        $values = (array) $values;
+        $values = $this->getArrayableItems($values);
 
         return $this->filter(function ($item) use ($key, $values, $strict) {
             return in_array(Arr::get($item, $key), $values, $strict);
@@ -486,6 +497,26 @@ class Collection implements ArrayAccess, IteratorAggregate
     public function push($value)
     {
         $this->offsetSet(null, $value);
+
+        return $this;
+    }
+
+
+    /**
+     * Execute a callback over each item.
+     *
+     * @param  callable  $callback
+     * @return $this
+     */
+    public function each(callable $callback)
+    {
+        foreach ($this->items as $key => $item)
+        {
+            if ($callback($item, $key) === false)
+            {
+                break;
+            }
+        }
 
         return $this;
     }
@@ -516,6 +547,128 @@ class Collection implements ArrayAccess, IteratorAggregate
         $this->offsetSet($key, $value);
 
         return $this;
+    }
+
+
+    /**
+     * Create a collection of all elements that do not pass a given truth test.
+     *
+     * @param  callable|mixed  $callback
+     * @return static
+     */
+    public function reject($callback)
+    {
+        if ($this->isCallable($callback))
+        {
+            return $this->filter(function ($value, $key) use ($callback) {
+                return ! $callback($value, $key);
+            });
+        }
+
+        return $this->filter(function ($item) use ($callback) {
+            return $item != $callback;
+        });
+    }
+
+
+    /**
+     * Return only unique items from the collection array.
+     *
+     * @param  string|callable|null  $key
+     * @param  bool  $strict
+     * @return static
+     */
+    public function unique($key = null, $strict = false)
+    {
+        $callback = $this->valueCallable($key);
+        $exists = [];
+
+        return $this->reject(function ($item, $key) use ($callback, $strict, &$exists)
+        {
+            if (in_array($id = $callback($item, $key), $exists, $strict))
+            {
+                return true;
+            }
+
+            $exists[] = $id;
+        });
+    }
+
+
+    /**
+     * Group an associative array by a field or using a callback.
+     *
+     * @param  callable|string  $groupBy
+     * @param  bool  $preserveKeys
+     * @return static
+     */
+    public function groupBy($groupBy, $preserveKeys = false)
+    {
+        $groupBy = $this->valueCallable($groupBy);
+
+        $results = [];
+
+        foreach ($this->items as $key => $value)
+        {
+            $groupKeys = $groupBy($value, $key);
+
+            if (! is_array($groupKeys))
+            {
+                $groupKeys = [$groupKeys];
+            }
+
+            foreach ($groupKeys as $groupKey)
+            {
+                $groupKey = is_bool($groupKey) ? (int) $groupKey : $groupKey;
+
+                if (! array_key_exists($groupKey, $results))
+                {
+                    $results[$groupKey] = new static;
+                }
+
+                $results[$groupKey]->offsetSet($preserveKeys ? $key : null, $value);
+            }
+        }
+
+        $result = new static($results);
+
+        return $result;
+    }
+
+
+    /**
+     * Merge the collection with the given items.
+     *
+     * @param  mixed  $items
+     * @return static
+     */
+    public function merge($items)
+    {
+        return new static(array_merge($this->items, $this->getArrayableItems($items)));
+    }
+
+
+    /**
+     * Create a collection by using this collection for keys and another for its values.
+     *
+     * @param  mixed  $values
+     * @return static
+     */
+    public function combine($values)
+    {
+        return new static(array_combine($this->all(), $this->getArrayableItems($values)));
+    }
+
+
+    /**
+     * Union the collection with the given items.
+     *
+     * @param  mixed  $items
+     * @return static
+     */
+    public function union($items)
+    {
+        return new static($this->items + $this->getArrayableItems($items));
     }
 
 
@@ -618,6 +771,27 @@ class Collection implements ArrayAccess, IteratorAggregate
 
 
     /**
+     * Results array of items from Collection or Arrayable.
+     *
+     * @param  mixed  $items
+     * @return array
+     */
+    protected function getArrayableItems($items)
+    {
+        if (is_array($items))
+        {
+            return $items;
+        }
+        elseif ($items instanceof self)
+        {
+            return $items->all();
+        }
+
+        return (array) $items;
+    }
+
+
+    /**
      * Where Check
      *
      * @param  string  $key
@@ -686,7 +860,7 @@ class Collection implements ArrayAccess, IteratorAggregate
         }
 
         return function ($item) use ($value) {
-            return $this->get($item, $value);
+            return Arr::get($item, $value);
         };
     }
 

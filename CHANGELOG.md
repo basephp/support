@@ -1,6 +1,23 @@
 # Release Notes
 
 
+## v1.3.6 (07/31/2018)
+
+### Added
+* Added `values()` method within `Collection` for resetting the array keys.
+* Added `reject()` method within `Collection` for using a given callback to remove items.
+* Added `unique()` method within `Collection` for returning only unique collection in items.
+* Added `groupBy()` method within `Collection` for grouping together similar items in array.
+* Added `combine()` method within `Collection` for one array for keys and another for its values.
+* Added `union()` method within `Collection` for adding array to existing array of items.
+* Added `each()` method within `Collection`, iterates over each item using a callback.
+* Added `getArrayableItems()` method on `Collection` to return the items into arrays.
+
+### Changed
+* Fixed `valueCallable()` into using the `Arr::get()` method instead of using `self get`, was wrongly getting items.
+* Fixed `whereIn()` by utilizing `getArrayableItems()` for its values.
+
+
 ## v1.3.5 (07/22/2018)
 
 ### Added
