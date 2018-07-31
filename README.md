@@ -6,6 +6,7 @@
 
 This package will help **simplify your PHP development**. PHP core functions are never consistent with it's naming conventions, and this package gives you an alternative that simplifies the use of common php functionality. This package has **no dependencies** and can be used in any of your PHP projects.
 
+
 ## Installation
 
 Install using composer (or download and include them manually)
@@ -15,22 +16,24 @@ composer require basephp/support
 ```
 *Note: If you're using the BasePHP Framework, this package is already included.*
 
+
 ## Included
 
 *This package includes the following classes*
 
 |Class            |Documentation                 |Subject                         |Description                     |
 |---              |---                           |---                  |---                             |
-|`Arr`            |[Documentation](COLLECTION.md)| Array               | Working with Arrays            |
-|`Str`            |[Documentation](COLLECTION.md)| String              | Working with Strings           |
-|`Num`            |[Documentation](COLLECTION.md)| Number              | Working with Numbers           |
-|`Filesystem`     |[Documentation](COLLECTION.md)| File System         | Working with the File System   |
-|`Collection`     |[Documentation](COLLECTION.md)| Wrapper for working with arrays of data |
+|`Arr`            |[Documentation](DOC-ARR.md)| Array               | Working with Arrays            |
+|`Str`            |[Documentation](DOC-STR.md)| String              | Working with Strings           |
+|`Num`            |[Documentation](DOC-NUM.md)| Number              | Working with Numbers           |
+|`Filesystem`     |[Documentation](DOC-FILESYSTEM.md)| File System         | Working with the File System   |
+|`Collection`     |[Documentation](DOC-COLLECTION.md)| Wrapper for working with arrays of data |
 
 
 ## About
 
 Inspired by core helpers in the Laravel framework. This package was designed to be **independent from any specific framework**; and it's goal is to give all your projects continuity.
+
 
 ## Contributions
 
