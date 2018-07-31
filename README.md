@@ -1,6 +1,6 @@
 > **Note:** This repository is a **standalone package** and does *not* require the BasePHP framework. If you would like to learn more about the framework, visit [BasePHP](https://github.com/basephp/framework). You may use this essential package and it's common functionality in your packages, projects and applications.
 
-# Essential PHP Functionality
+# Base Support (Common PHP Helpers)
 
 [![Build Status](https://travis-ci.org/basephp/support.svg?branch=1.3)](https://travis-ci.org/basephp/support) [![Coverage Status](https://coveralls.io/repos/github/basephp/support/badge.svg?branch=1.3)](https://coveralls.io/github/basephp/support?branch=1.3)
 
@@ -15,17 +15,22 @@ composer require basephp/support
 ```
 *Note: If you're using the BasePHP Framework, this package is already included.*
 
-## Includes
+## Included
 
-*This package includes the following static classes*
+*This package includes the following classes*
 
-|Class            |Subject              |Description                     |
-|---              |---                  |---                             |
-|`Arr`            | Array               | Working with Arrays            |
-|`Str`            | String              | Working with Strings           |
-|`Num`            | Number              | Working with Numbers           |
-|`Filesystem`     | File System         | Working with the File System   |
-|`Collection`     | Collection of items | Wrapper for working with arrays of data |
+|Class            |Documentation                 |Subject                         |Description                     |
+|---              |---                           |---                  |---                             |
+|`Arr`            |[Documentation](COLLECTION.md)| Array               | Working with Arrays            |
+|`Str`            |[Documentation](COLLECTION.md)| String              | Working with Strings           |
+|`Num`            |[Documentation](COLLECTION.md)| Number              | Working with Numbers           |
+|`Filesystem`     |[Documentation](COLLECTION.md)| File System         | Working with the File System   |
+|`Collection`     |[Documentation](COLLECTION.md)| Wrapper for working with arrays of data |
+
+
+## About
+
+Inspired by core helpers in the Laravel framework. This package was designed to be **independent from any specific framework**; and it's goal is to give all your projects continuity.
 
 ## Contributions
 
