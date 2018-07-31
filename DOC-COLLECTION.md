@@ -15,7 +15,7 @@ A simple collection:
 $collection = new Collection([1,2,3,4,5,6]);
 ```
 
-A collection listing an array of products:
+A collection of products:
 
 ```php
 // collection with all your products
@@ -27,6 +27,8 @@ $collection = new Collection([
 ```
 
 ## Available Methods
+
+These methods are available on a `new Collection` instance.
 
 |Method                         |Return Type       |Description                          |
 |---                            |---               |---                                  |
@@ -50,12 +52,12 @@ $collection = new Collection([
 |`values()`                     |`new Collection`  | Reset the keys on the underlying array |
 |`map($callback)`               |`new Collection`  | Run a map over each of the items |
 |`pluck($value, $key)`          |`new Collection`  | Get the values of a given key |
-|`random($number)`              |`new Collection`  | Get a specified number of items randomly from the collection |
+|`random($number)`              |`new Collection`  | Get items randomly from the collection |
 |`except($keys)`                |`new Collection`  | Get all items except for those with the specified keys |
 |`only($keys)`                  |`new Collection`  | Get the items with the specified keys |
 |`only($keys)`                    |`new Collection`  | Get the items with the specified keys |
 |`sort($callback)`                |`new Collection`  | Sort through each item with a callback |
-|`sortBy($callback, $direction)`  |`new Collection`  | Sort the collection using the given callback |
+|`sortBy($callback, $dir)`        |`new Collection`  | Sort the collection using the given callback |
 |`filter($callback)`              |`new Collection`  | Run a filter over each of the items |
 |`where($key, $operator, $value)` |`new Collection`  | Filter items by the given key value pair |
 |`whereIn($key, $values)`         |`new Collection`  | Filter items by the given key value pair |
