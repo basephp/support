@@ -34,7 +34,7 @@ composer require basephp/support
 
 Inspired by core helpers from the Laravel framework.
 
-This package was designed to be **independent from any specific framework** and give all your projects consistency. 
+This package was designed to be **independent from any specific framework** and to give all your projects consistency. 
 
 
 ## Contributions
