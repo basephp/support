@@ -45,6 +45,16 @@ class StrTest extends \PHPUnit\Framework\TestCase
     }
 
 
+    public function testStringClean()
+    {
+        $string = ' product.   &+hel&lo+ test ';
+
+        $this->assertEquals(Str::clean($string), 'product hello test');
+
+        $this->assertEquals(Str::clean($string, true), 'producthellotest');
+    }
+
+
     public function testStringIs()
     {
         $string = 'This website is the best, I love it so much.';

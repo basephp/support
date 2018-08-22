@@ -189,9 +189,34 @@ class Str
 
 
     /**
+     * Generate a alpha-numeric string
+     *
+     * @param  string  $string
+     * @param  string  $separator
+     * @return string
+     */
+    public static function clean($string, $strict = false)
+    {
+        if ($strict == true)
+        {
+            $result = preg_replace("/[^a-zA-Z0-9]+/", '', $string);
+            $result = preg_replace('/\s+/', '', $result);
+        }
+        else
+        {
+            $result = preg_replace("/[^a-zA-Z0-9\s]+/", '', $string);
+            $result = preg_replace('/\s+/', ' ', $result);
+        }
+
+        // remove whitespace from the start and end of string
+        return trim($result);
+    }
+
+
+    /**
      * Generate a URI formatted string
      *
-     * @param  string  $title
+     * @param  string  $uri
      * @param  string  $separator
      * @return string
      */
@@ -208,7 +233,7 @@ class Str
         // Replace all separator characters and whitespace by a single separator
         $uri = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $uri);
 
-        // clean the beginning and end of string and return
+        // remove from the start and end of string
         return trim($uri, $separator);
     }
 
