@@ -5,6 +5,14 @@ The `Base\Support\Collection` class provides a convenient way to work with a **c
 [Learn More](README.md) about using the Base Support within your project.
 
 
+## Namespace
+
+Use the following namespace to include into your current project.
+
+```php
+use Base\Support\Collection;
+```
+
 ## Creating Collections
 
 Creating a collection is very simple and easy. First you define the new collection class, and then you inject the array into the class construct (as shown below).
