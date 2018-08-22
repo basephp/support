@@ -32,11 +32,11 @@ This will format the string for the use of urls.
 ```php
 $name = 'timothy marois';
 
-// formats: /timothy-marois
 $url = 'https://github.com/'.Str::uri($name,'-');
+// formats: /timothy-marois
 
-// formats: /timothymarois
 $url = 'https://github.com/'.Str::uri($name,'');
+// formats: /timothymarois
 ```
 
 ## Available Methods
@@ -55,5 +55,5 @@ These methods are available on a `Str` static class.
 |`words($value, $limit, $end)`      |`string`          | Limit the number of words in a string. |
 |`substr($string, $start, $length)` |`string`          | Returns the portion of string |
 |`is($pattern, $value)`             |`bool`            | if a given string matches a given pattern |
-|`clean($str)`                      |`string`          | convert string to alpha-numeric |
+|`clean($str, $strict)`             |`string`          | convert string to alpha-numeric |
 |`uri($uri, $separator)`            |`string`          | convert string to URI format |
