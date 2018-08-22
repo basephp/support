@@ -1,9 +1,14 @@
 # Release Notes
 
-## v1.3.7 (08/21/2018)
+
+## v1.3.8 (08/21/2018)
 
 ### Added
 * Added `clean()` method within `Str` for writing strings based on alpha-numeric + whitespace characters only. You can enable strict mode, which will remove all white space.
+
+
+## v1.3.7 (08/21/2018)
+* Bumped due to missed commits
 
 
 ## v1.3.6 (07/31/2018)
