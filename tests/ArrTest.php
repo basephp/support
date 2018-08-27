@@ -151,4 +151,36 @@ class ArrTest extends \PHPUnit\Framework\TestCase
 
     }
 
+
+
+
+    public function testArrayDensity()
+    {
+        $array = [
+            'computer',
+            'office',
+            'chair',
+            'ofFice',
+            'OFFICE',
+            'chair'
+        ];
+
+        $density = Arr::density($array);
+
+        $this->assertSame($density, ['office'=>3,'chair'=>2,'computer'=>1]);
+
+        $density = Arr::density([
+            'computer',
+            'office',
+            'office',
+            'chair',
+            'office',
+            'OFFICE',
+            'chair'
+        ], true);
+
+        $this->assertSame(['office'=>3,'chair'=>2,'computer'=>1,'OFFICE'=>1], $density);
+
+    }
+
 }

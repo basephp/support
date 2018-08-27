@@ -678,4 +678,39 @@ class Arr
         return ! is_array($value) ? [$value] : $value;
     }
 
+
+    /**
+     * Counts the density of a word/item within the array
+     *
+     * (also sort them by their popularity)
+     *
+     * Strict forces it to be case-sensitive
+     *
+     * @param  array  $arr
+     * @param  bool  $strict
+     * @return array
+     */
+    public static function density(array $arr, $strict = false)
+    {
+        $items = [];
+        foreach($arr as $i)
+        {
+            $item = ($strict === true) ? ($i) : strtolower($i);
+
+            if (isset($items[$item]))
+            {
+                $items[$item]++;
+
+                continue;
+            }
+
+            $items[$item] = 1;
+        }
+
+        arsort($items);
+
+        return $items;
+    }
+
+
 }

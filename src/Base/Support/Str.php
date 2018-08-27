@@ -132,6 +132,37 @@ class Str
 
 
     /**
+     * Get all the words from a string (and return the array)
+     *
+     * @param  string  $string
+     * @param  int     $min
+     * @param  int     $max
+     * @param  bool    $unique
+     * @return array
+     */
+    public static function wordArray($string, $min = 3, $max = 32, $unique = false)
+    {
+        $rwords = [];
+        $words  = preg_split('/\s+/', static::clean($string, false));
+
+        foreach($words as $i=>$word)
+        {
+            if (static::length($word) >= $min && static::length($word) <= $max)
+            {
+                if ($unique===true && in_array($word, $rwords))
+                {
+                    continue;
+                }
+
+                array_push($rwords, $word);
+            }
+        }
+
+        return $rwords;
+    }
+
+
+    /**
      * Returns the portion of string specified by the start and length parameters.
      *
      * @param  string  $string

@@ -57,3 +57,4 @@ These methods are available on a `Str` static class.
 |`is($pattern, $value)`             |`bool`            | if a given string matches a given pattern |
 |`clean($str, $strict)`             |`string`          | convert string to alpha-numeric |
 |`uri($uri, $separator)`            |`string`          | convert string to URI format |
+|`wordArray($string,$min,$max,$unique)`  |`array`      | Returns an array of all the words within a string |

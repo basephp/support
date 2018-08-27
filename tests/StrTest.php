@@ -45,6 +45,24 @@ class StrTest extends \PHPUnit\Framework\TestCase
     }
 
 
+    public function testStringWordsArray()
+    {
+        $this->assertEquals(Str::wordArray('word1 word2 word3'),['word1','word2','word3']);
+
+        $this->assertEquals(Str::wordArray('word1, word2, word3'),['word1','word2','word3']);
+
+        $this->assertEquals(Str::wordArray('the, as, world',5,32),['world']);
+
+        $this->assertEquals(Str::wordArray('dfsdfgsd    ggheerre     ghfdghfh'),['dfsdfgsd','ggheerre','ghfdghfh']);
+
+        $this->assertEquals(Str::wordArray('wo-rd1, word%2, word3'),['word1','word2','word3']);
+
+        $this->assertEquals(Str::wordArray('Dorado Office Chair White Office Star'),['Dorado','Office','Chair','White','Office','Star']);
+
+        $this->assertEquals(Str::wordArray('Dorado Office Chair White Office Star',3,32,true),['Dorado','Office','Chair','White','Star']);
+    }
+
+
     public function testStringClean()
     {
         $string = ' product.   &+hel&lo+ test ';

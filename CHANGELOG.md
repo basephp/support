@@ -1,6 +1,13 @@
 # Release Notes
 
 
+## v1.3.9 (08/27/2018)
+
+### Added
+* Added `wordArray()` on `Str` class which returns an array of all the words within a string.
+* Added `density()` on `Arr` class to count all the items within an array and sort them by popularity.
+
+
 ## v1.3.8 (08/21/2018)
 
 ### Added
