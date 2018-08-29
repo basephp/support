@@ -2,7 +2,7 @@
 
 # Base Support (Common PHP Helpers)
 
-[![Build Status](https://travis-ci.org/basephp/support.svg?branch=1.3)](https://travis-ci.org/basephp/support) [![Coverage Status](https://coveralls.io/repos/github/basephp/support/badge.svg?branch=1.3)](https://coveralls.io/github/basephp/support?branch=1.3)
+[![Build Status](https://travis-ci.org/basephp/support.svg?branch=1.3)](https://travis-ci.org/basephp/support) [![Coverage Status](https://coveralls.io/repos/github/basephp/support/badge.svg?branch=1.3)](https://coveralls.io/github/basephp/support?branch=1.3) [![Slack](http://timothymarois.com/a/slack-02.svg)](https://join.slack.com/t/basephp/shared_invite/enQtNDI0MzQyMDE0MDAwLWU3Nzg0Yjk4MjM0OWVmZDZjMjEyYWE2YjA1ODFhNjI2MzI3MjAyOTIyOTRkMmVlNWNhZWYzMTIwZDJlOWQ2ZTA)
 
 This package will help **simplify your PHP development**. PHP core functions are never consistent with it's naming conventions, and this package gives you an alternative that simplifies the use of common php functionality. This package has **no dependencies** and can be used in any of your PHP projects.
 
@@ -34,7 +34,7 @@ composer require basephp/support
 
 Inspired by core helpers from the Laravel framework.
 
-This package was designed to be **independent from any specific framework** and to give all your projects consistency. 
+This package was designed to be **independent from any specific framework** and to give all your projects consistency.
 
 
 ## Contributions
