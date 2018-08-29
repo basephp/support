@@ -14,20 +14,20 @@ Install using composer (or download and include them manually)
 ```
 composer require basephp/support
 ```
-*Note: If you're using the BasePHP Framework, this package is already included.*
+*Note: If you're using [BasePHP](https://github.com/basephp/basephp), this package is already included.*
 
 
 ## Included
 
-*This package includes the following classes*
+*This package includes the following*
 
 |Class            |Documentation                 |Subject                         |Description                     |
 |---              |---                           |---                  |---                             |
-|`Arr`            |[Documentation](DOC-ARR.md)| Array               | Working with Arrays            |
-|`Str`            |[Documentation](DOC-STR.md)| String              | Working with Strings           |
-|`Num`            |[Documentation](DOC-NUM.md)| Number              | Working with Numbers           |
-|`Filesystem`     |[Documentation](DOC-FILESYSTEM.md)| File System         | Working with the File System   |
-|`Collection`     |[Documentation](DOC-COLLECTION.md)| Wrapper for working with arrays of data |
+|`Arr`            |[Documentation](DOC-ARR.md)           | Array                | Working with Arrays            |
+|`Str`            |[Documentation](DOC-STR.md)           | String               | Working with Strings           |
+|`Num`            |[Documentation](DOC-NUM.md)           | Number               | Working with Numbers           |
+|`Filesystem`     |[Documentation](DOC-FILESYSTEM.md)    | File System          | Working with the File System   |
+|`Collection`     |[Documentation](DOC-COLLECTION.md)    | Collection of Arrays | Wrapper for working with arrays of data |
 
 
 ## About
