@@ -9,7 +9,7 @@ This package will help **simplify your PHP development**. PHP core functions are
 
 ## Installation
 
-Install using composer (or download and include them manually)
+Install using composer (or download and include manually).
 
 ```
 composer require basephp/support
@@ -17,26 +17,31 @@ composer require basephp/support
 *Note: If you're using [BasePHP](https://github.com/basephp/basephp), this package is already included.*
 
 
-## Included
+## What is included?
 
-*This package includes the following*
+*This package includes the following:*
 
-|Class            |Documentation                 |Subject                         |Description                     |
-|---              |---                           |---                  |---                             |
+|Class            |Documentation                         |Subject                         |Description                     |
+|---              |---                                   |---                   |---                             |
 |`Arr`            |[Documentation](DOC-ARR.md)           | Array                | Working with Arrays            |
 |`Str`            |[Documentation](DOC-STR.md)           | String               | Working with Strings           |
 |`Num`            |[Documentation](DOC-NUM.md)           | Number               | Working with Numbers           |
 |`Filesystem`     |[Documentation](DOC-FILESYSTEM.md)    | File System          | Working with the File System   |
-|`Collection`     |[Documentation](DOC-COLLECTION.md)    | Collection of Arrays | Wrapper for working with arrays of data |
+|`Collection`     |[Documentation](DOC-COLLECTION.md)    | Collections          | Wrapper for working with arrays of data |
 
 
 ## About
 
-Inspired by core helpers from the Laravel framework.
-
 This package was designed to be **independent from any specific framework** and to give all your projects consistency.
+
+Inspired by core helpers from the Laravel framework.
 
 
 ## Contributions
 
-Accepting contributions and feedback. Send in any issues and pull requests.
+Anyone can contribute to the library. Please do so by posting issues when you've found something that is unexpected or sending a pull request for improvements.
+
+
+## License
+
+This package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
