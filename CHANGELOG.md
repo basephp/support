@@ -1,6 +1,13 @@
 # Release Notes
 
 
+## v1.3.10 (09/03/2018)
+
+### Added
+* Added `Base\Support\Container` Wrapper for working with instances.
+* Added `Base\Support\Pipeline` Ability to pass an instance through stages.
+
+
 ## v1.3.9 (08/27/2018)
 
 ### Added

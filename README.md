@@ -17,7 +17,7 @@ composer require basephp/support
 *Note: If you're using [BasePHP](https://github.com/basephp/basephp), this package is already included.*
 
 
-## What is included?
+## Included
 
 *This package includes the following:*
 
@@ -28,6 +28,8 @@ composer require basephp/support
 |`Num`            |[Documentation](DOC-NUM.md)           | Number               | Working with Numbers           |
 |`Filesystem`     |[Documentation](DOC-FILESYSTEM.md)    | File System          | Working with the File System   |
 |`Collection`     |[Documentation](DOC-COLLECTION.md)    | Collections          | Wrapper for working with arrays of data |
+|`Container`      |[Documentation](DOC-CONTAINER.md)     | Instances            | Wrapper for working with instances |
+|`Pipeline`       |[Documentation](DOC-PIPELINE.md)      | Instances            | Ability to pass an instance through stages |
 
 
 ## About
