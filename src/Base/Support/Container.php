@@ -28,6 +28,13 @@ class Container
      */
     protected $aliases = [];
 
+    /**
+     * The tags assigned to instance handles
+     *
+     * @var array
+     */
+    protected $tags = [];
+
 
     /**
      * Get the resolved instances
@@ -172,6 +179,47 @@ class Container
         }
 
         return $this->instances[$handle] = $obj;
+    }
+
+    /**
+     * Assign a set of tags to a given instances.
+     *
+     * @param  array|string  $handles
+     * @param  array|mixed   ...$tags
+     * @return void
+     */
+    public function tag($handles, $tags)
+    {
+        $tags = is_array($tags) ? $tags : array_slice(func_get_args(), 1);
+
+        foreach ($tags as $tag) {
+            if (! isset($this->tags[$tag])) {
+                $this->tags[$tag] = [];
+            }
+
+            foreach ((array) $handles as $handle) {
+                $this->tags[$tag][] = $handle;
+            }
+        }
+    }
+
+    /**
+     * Resolve all of the instances for a given tag.
+     *
+     * @param  string  $tag
+     * @return array
+     */
+    public function tagged($tag)
+    {
+        $results = [];
+
+        if (isset($this->tags[$tag])) {
+            foreach ($this->tags[$tag] as $handle) {
+                $results[] = $this->make($handle);
+            }
+        }
+
+        return $results;
     }
 
     /**

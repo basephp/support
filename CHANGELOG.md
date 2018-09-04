@@ -1,6 +1,13 @@
 # Release Notes
 
 
+## v1.3.12 (09/03/2018)
+
+### Added
+* Added `tag` on `Container`
+* Added `tagged` on `Container`
+
+
 ## v1.3.11 (09/03/2018)
 
 ### Added

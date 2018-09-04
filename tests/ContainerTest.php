@@ -63,7 +63,6 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
     }
 
 
-
     public function testMake()
     {
         $c1 = new Container();
@@ -259,6 +258,23 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
         $config = $c1->get('config');
 
         $this->assertEquals([1,2,3], $config->all());
+    }
+
+
+
+    public function testTagged()
+    {
+        $c1 = new Container();
+        $c1->setAlias([
+            'obj1' => \Base\ContainerObject::class,
+            'obj2' => \Base\ContainerObjec2::class
+        ]);
+
+        $c1->tag(['obj1'],'middleware');
+
+        $tagged = $c1->tagged('middleware');
+
+        $this->assertEquals('Yes!', $tagged[0]->handle());
     }
 
 }
