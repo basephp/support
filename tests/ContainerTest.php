@@ -1,7 +1,7 @@
 <?php  namespace Base;
 
 use Base\Support\Container;
-
+use Base\Support\Collection;
 
 
 class ContainerObject
@@ -160,8 +160,8 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
         $c1->make('obj2');
 
         $this->assertEquals([
-            'Base\ContainerObject',
-            'Base\ContainerObjec2'
+            'obj1',
+            'obj2',
         ], $c1->getResolved());
     }
 
@@ -179,8 +179,8 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
         $c1->make('Base\\ContainerObjec3');
 
         $this->assertEquals([
-            'Base\\ContainerObject',
-            'Base\\ContainerObjec2',
+            'obj1',
+            'obj2',
             'Base\\ContainerObjec3'
         ], array_keys($c1->getInstances()));
 
@@ -202,8 +202,8 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
         $c1->make('Base\\ContainerObjec3');
 
         $this->assertEquals([
-            'Base\\ContainerObject',
-            'Base\\ContainerObjec2',
+            'obj1',
+            'obj2',
             'Base\\ContainerObjec3'
         ], array_keys($c1->getInstances()));
 
@@ -211,7 +211,8 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
 
         $c1->forgetInstances();
 
-        $this->assertEquals($c1->getResolved(), array_keys($c1->getInstances()));
+        $this->assertEquals($c1->getResolved(), []);
+
         $this->assertEquals([], $c1->getResolved());
         $this->assertEquals([], array_keys($c1->getInstances()));
     }
@@ -231,20 +232,33 @@ class ContainerTest extends \PHPUnit\Framework\TestCase
         $c1->make('Base\\ContainerObjec3');
 
         $this->assertEquals([
-            'Base\\ContainerObject',
-            'Base\\ContainerObjec2',
+            'obj1',
+            'obj2',
             'Base\\ContainerObjec3'
         ], array_keys($c1->getInstances()));
 
-        $this->assertEquals($c1->getResolved(), array_keys($c1->getInstances()));
+        $c1->forgetInstance('Base\\ContainerObjec3');
 
-        $c1->forgetInstance('obj2');
+        $this->assertEquals(($c1->getResolved()), [
+            'obj1',
+            'obj2'
+        ]);
+    }
 
-        $this->assertEquals(array_values($c1->getResolved()), array_keys($c1->getInstances()));
-        $this->assertEquals([
-            'Base\\ContainerObject',
-            'Base\\ContainerObjec3'
-        ], array_values($c1->getResolved()));
+
+
+
+    public function testClassPass()
+    {
+        $c1 = new Container();
+
+        $config = $c1->register('config', (new Collection([1,2,3])));
+
+        $this->assertEquals([1,2,3], $config->all());
+
+        $config = $c1->get('config');
+
+        $this->assertEquals([1,2,3], $config->all());
     }
 
 }

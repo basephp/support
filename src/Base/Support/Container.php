@@ -28,13 +28,6 @@ class Container
      */
     protected $aliases = [];
 
-    /**
-     * The resolved instances
-     *
-     * @var array
-     */
-    protected $resolved = [];
-
 
     /**
      * Get the resolved instances
@@ -43,7 +36,7 @@ class Container
      */
     public function getResolved()
     {
-        return $this->resolved;
+        return array_keys($this->instances);
     }
 
     /**
@@ -59,12 +52,12 @@ class Container
     /**
      * Determine if a given string is an alias.
      *
-     * @param  string  $name
+     * @param  string  $key
      * @return bool
      */
-    public function isAlias($handle)
+    public function isAlias($key)
     {
-        return isset($this->aliases[$handle]);
+        return isset($this->aliases[$key]);
     }
 
     /**
@@ -74,13 +67,13 @@ class Container
      * @return string
      *
      */
-    public function getAlias($alias)
+    public function getAlias($key)
     {
-        if ($this->isAlias($alias)) {
-            return $this->aliases[$alias];
+        if ($this->isAlias($key)) {
+            return $this->aliases[$key];
         }
 
-        return $alias;
+        return $key;
     }
 
     /**
@@ -99,16 +92,26 @@ class Container
     }
 
     /**
+     * Register an instance that has already been established
+     *
+     * @param  string  $name
+     * @param  object  $instance
+     * @return bool
+     */
+    public function register($name, $instance)
+    {
+        return $this->instances[$name] = $instance;
+    }
+
+    /**
      * Check if the instance exist
      *
-     * @param  string  $id
+     * @param  string  $handle
      *
      */
     public function has($handle)
     {
-        $namespace = $this->getAlias($handle);
-
-        return isset($this->instances[$namespace]);
+        return isset($this->instances[$handle]);
     }
 
     /**
@@ -158,8 +161,8 @@ class Container
         // If an instance of the type is currently being managed as a singleton we'll
         // just return an existing instance instead of instantiating new instances
         // so the developer can keep using the same objects instance every time.
-        if (isset($this->instances[$namespace])) {
-            return $this->instances[$namespace];
+        if (isset($this->instances[$handle])) {
+            return $this->instances[$handle];
         }
 
         if (!empty($parameters)) {
@@ -168,9 +171,7 @@ class Container
             $obj = new $namespace;
         }
 
-        $this->resolved[] = $namespace;
-
-        return $this->instances[$namespace] = $obj;
+        return $this->instances[$handle] = $obj;
     }
 
     /**
@@ -181,13 +182,7 @@ class Container
      */
     public function forgetInstance($handle)
     {
-        $namespace = $this->getAlias($handle);
-
-        unset($this->instances[$namespace]);
-
-        $resolvedKey = array_search($namespace, $this->resolved);
-
-        unset($this->resolved[$resolvedKey]);
+        unset($this->instances[$handle]);
     }
 
     /**
@@ -198,7 +193,6 @@ class Container
     public function forgetInstances()
     {
         $this->instances = [];
-        $this->resolved = [];
     }
 
     /**
@@ -213,6 +207,27 @@ class Container
         }
 
         return static::$instance;
+    }
+
+    /**
+    * Set the container instance
+    *
+    * @return static
+    */
+    public static function setInstance(Container $container)
+    {
+        return static::$instance = $container;
+    }
+
+    /**
+    * Get an instance
+    *
+    * @param  string  $key
+    * @return mixed
+    */
+    public function __get($key)
+    {
+        return $this->get($key);
     }
 
 }

@@ -1,6 +1,16 @@
 # Release Notes
 
 
+## v1.3.11 (09/03/2018)
+
+### Added
+* Added `setInstance` on `Container`
+* Added `register` on `Container`
+
+### Changed
+* Fixed issues with instances on `Container` not properly resolving.
+
+
 ## v1.3.10 (09/03/2018)
 
 ### Added
